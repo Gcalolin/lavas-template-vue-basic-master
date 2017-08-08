@@ -6,6 +6,7 @@
 import 'babel-polyfill';
 import FastClick from 'fastclick';
 import {createApp} from './app';
+// import Router from './router.js';
 
 FastClick.attach(document.body);
 

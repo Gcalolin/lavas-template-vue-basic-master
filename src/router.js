@@ -25,7 +25,7 @@ function validateRoute(path) {
             return routeRegex.test(path);
         });
 }
-
+console.log('allRoutes:'+allRoutes);
 export function createRouter({routes = []}) {
     console.log(routes);
     let router = new Router({

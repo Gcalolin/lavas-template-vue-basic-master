@@ -35,6 +35,12 @@ module.exports = {
     },
     module: {
         rules: [
+            // collect routes and inject
+            {
+                resource: resolve('src/router.js'),
+                loader: 'router-loader',
+                enforce: 'pre'
+            },
             {
                 test: /\.vue$/,
                 use: [
@@ -70,5 +76,10 @@ module.exports = {
                 loaders: ['style-loader','css-loader','scss-loader']
             }
         ]
+    },
+    resolveLoader: {
+        alias: {
+            'router-loader': path.join(__dirname, './loaders/router-loader')
+        }
     }
 };
