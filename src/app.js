@@ -11,12 +11,14 @@ import store from './store/index.js';
 Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
-export function createApp() {
-    let router = createRouter();
+export function createApp(routerParams) {
+    console.log(routerParams);
+    let router = createRouter(routerParams);
+
     let app = new Vue({
         router,
         store,
         ...App
     });
-    return {app, router};
+    return {app, router, store};
 }

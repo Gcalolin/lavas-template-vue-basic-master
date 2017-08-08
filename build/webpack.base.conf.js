@@ -15,9 +15,10 @@ function resolve(dir) {
 }
 
 module.exports = {
-    entry: {
-        app: ['babel-polyfill', './src/entry-client.js']
-    },
+    // entry: {
+    //     app: ['babel-polyfill', './src/entry-client.js']
+    // },
+    entry: utils.getEntries('./src/pages','entry.js'),
     output: {
         path: config.build.assetsRoot,
         filename: '[name].js',

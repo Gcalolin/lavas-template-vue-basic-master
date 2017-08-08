@@ -40,11 +40,12 @@ export default {
          * @param {Object} route route
          * @param {string} name 触发的底部导航栏的 name
          */
-        handleNavClick(route, name,e) {
+        handleNavClick(route, name, e) {
             let eventData = {name};
             // console.log(name);
-            console.log(e);
-            if (route == '') {}
+            // console.log(e);
+            console.log(this.$router);
+            
             // e.preventDefault();
             // 发送给父组件，内部处理
             this.$emit('click-nav', eventData);
