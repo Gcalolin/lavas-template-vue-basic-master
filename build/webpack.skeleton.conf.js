@@ -11,13 +11,13 @@ const merge = require('webpack-merge');
 const baseWebpackConfig = require('./webpack.base.conf');
 const nodeExternals = require('webpack-node-externals');
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
+const utils = require('./utils');
 
 module.exports = merge(baseWebpackConfig, {
     target: 'node',
     devtool: false,
-    entry: './src/entry-skeleton.js',
+    entry: utils.getEntries('./src/pages', 'entry-skeleton.js'),
     output: Object.assign({}, baseWebpackConfig.output, {
-        filename: 'skeleton-bundle.js',
         libraryTarget: 'commonjs2'
     }),
     externals: nodeExternals({

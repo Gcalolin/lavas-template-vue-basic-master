@@ -15,6 +15,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const SkeletonWebpackPlugin = require('vue-skeleton-webpack-plugin');
+const MultipageWebpackPlugin = require('multipage-webpack-plugin');
 
 function resolve(dir) {
     return path.join(__dirname, '..', dir);
@@ -31,8 +32,8 @@ module.exports = merge(baseWebpackConfig, {
             .concat(SkeletonWebpackPlugin.loader({ // visit by route '/skeleton' in dev mode
                 resource: resolve('src/router.js'),
                 options: {
-                    entry: 'skeleton',
-                    routePathTemplate: '/skeleton'
+                    entry: Object.keys(utils.getEntries('./src/pages')),
+                    importTemplate: 'import [nameCap] from \'@/pages/[name]/[nameCap].skeleton.vue\';'
                 }
             }))
     },
@@ -56,13 +57,23 @@ module.exports = merge(baseWebpackConfig, {
             webpackConfig: require('./webpack.skeleton.conf')
         }),
 
-        // https://github.com/ampedandwired/html-webpack-plugin
-        new HtmlWebpackPlugin({
-            filename: 'index.html',
-            template: 'index.html',
-            inject: true,
-            favicon: utils.assetsPath('img/icons/favicon.ico')
+        new MultipageWebpackPlugin({
+            bootstrapFilename: 'manifest',
+            templateFilename: 'index.html',
+            templatePath: '[name]',
+            htmlTemplatePath: resolve('src/pages/[name]/index.html'),
+            htmlWebpackPluginOptions: {
+                inject: true,
+                favicon: utils.assetsPath('img/icons/favicon.ico')
+            }
         }),
+        // https://github.com/ampedandwired/html-webpack-plugin
+        // new HtmlWebpackPlugin({
+        //     filename: 'index.html',
+        //     template: 'index.html',
+        //     inject: true,
+        //     favicon: utils.assetsPath('img/icons/favicon.ico')
+        // }),
 
         new FriendlyErrorsPlugin()
     ]
